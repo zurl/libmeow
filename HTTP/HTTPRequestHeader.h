@@ -57,6 +57,18 @@ public:
             HTTPHeader::setHeader(key, value);
         }
      }
+
+    HTTPMethod getMethod() const {
+        return method;
+    }
+
+    const std::string &getVersion() const {
+        return version;
+    }
+
+    const std::string &getPath() const {
+        return path;
+    }
 };
 
 #endif //MEOW_HTTPREQUESTHEADER_H

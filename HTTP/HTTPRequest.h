@@ -6,7 +6,7 @@
 #define MEOW_HTTPREQUEST_H
 
 #include "HTTPRequestHeader.h"
-#include "StringUtil.h"
+#include "../StringUtil.h"
 
 class HTTPRequest{
     HTTPRequestHeader header;
@@ -32,6 +32,14 @@ public:
             if(nowLen == bodyLen) return true;
         }
         return false;
+    }
+
+    const HTTPRequestHeader &getHeader() const {
+        return header;
+    }
+
+    char *getBody() const {
+        return body;
     }
 };
 

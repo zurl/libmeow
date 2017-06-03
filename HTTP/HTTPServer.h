@@ -8,6 +8,7 @@
 
 #include "HTTPRequest.h"
 #include "HTTPContext.h"
+#include "../TCP/TCPServer.h"
 
 class HTTPServer {
     TCPServer tcpServer;
@@ -27,7 +28,18 @@ public:
                 iter = ctx.find(ord);
             }
             if(iter->second.append(tcpServer.getRecvBuffer(), len)){
-                if(onSuccess != nullptr) this->onSuccess(iter->second);
+                if(onSuccess != nullptr){
+                    this->onSuccess(iter->second);
+                    std::string res = iter->second.getResponse()->toString();
+                    tcpServer.write(res.c_str(), res.length());
+                    iter->second.reset();
+                }
+            }
+        }, [this](TCPServer & tcpServer){
+            int ord = tcpServer.getClientord();
+            auto iter = ctx.find(ord);
+            if(iter != ctx.end()){
+                iter->second.reset();
             }
         });
     }
@@ -36,8 +48,10 @@ public:
     }
     HTTPServer & listen(){
         tcpServer.listen();
+        return *this;
     }
 };
+
 
 
 #endif //MEOW_HTTPSERVER_H

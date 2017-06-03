@@ -4,17 +4,14 @@ project(meow)
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        TCPClient.cpp
-        TCPClientTest.cpp
         Main.cpp
         NetworkException.cpp
-        TCPServer.cpp
-        TCPServerTest.cpp
-        HTTPRequestHeader.h
-        HTTPHeader.h
-        HTTPServer.h
-        HTTPFormatError.cpp
-        HTTPMethod.h
+        TCP/TCPServer.cpp
+        HTTP/HTTPRequestHeader.h
+        HTTP/HTTPHeader.h
+        HTTP/HTTPServer.h
+        HTTP/HTTPFormatError.cpp
+        HTTP/HTTPMethod.h
         StringUtil.h
-        HTTPRequest.h HTTPContext.h HTTPResponse.h HTTPResponseHeader.h)
+        HTTP/HTTPRequest.h HTTP/HTTPContext.h HTTP/HTTPResponse.h HTTP/HTTPResponseHeader.h)
 add_executable(meow ${SOURCE_FILES})

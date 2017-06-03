@@ -88,11 +88,12 @@ TCPServer &TCPServer::listen() {
                     }
                     else{
                         printf("$");
-                        FD_CLR(client[i], &read_fs);
-                        client[i] = -1;
+                        this->clientord = i;
                         if(this->onError != nullptr){
                             this->onError(*this);
                         }
+                        FD_CLR(client[i], &read_fs);
+                        client[i] = -1;
                     }
                 }
             }
@@ -112,7 +113,9 @@ const char *TCPServer::getRecvBuffer() const {
 }
 
 TCPServer &TCPServer::write(const char *data, size_t len) {
-    ::write(this->client[this->clientord], data, len);
+    if(::write(this->client[this->clientord], data, len) < 0){
+        throw NetworkException("error at write", errno);
+    }
     return *this;
 }
 

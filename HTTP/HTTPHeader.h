@@ -9,7 +9,9 @@
 #include <string>
 #include <map>
 
+
 class HTTPHeader {
+protected:
     std::map<std::string, std::string> headers;
 public:
     inline bool hasHeader(const std::string & key){

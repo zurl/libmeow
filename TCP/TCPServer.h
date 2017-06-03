@@ -10,7 +10,7 @@
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <string>
-#include "NetworkException.h"
+#include "../NetworkException.h"
 
 const int TCP_SERVER_BUFFER_SIZE = 4096;
 const int TCP_SERVER_CLIENT_MAX = 256;

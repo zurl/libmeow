@@ -6,12 +6,18 @@
 #define MEOW_HTTPRESPONSEHEADER_H
 
 #include "HTTPHeader.h"
+#include "../StringUtil.h"
+
+const char * HTTP_VERSION = "HTTP/1.1";
+const char * ENGINE_INFO = "Meow";
 
 class HTTPResponseHeader : public HTTPHeader{
-    int code;
-    std::string message;
+    int code = 200;
+    std::string message = "OK";
 public:
-    HTTPResponseHeader() {}
+    HTTPResponseHeader() {
+        HTTPHeader::setHeader("Server", ENGINE_INFO);
+    }
 
     int getCode() const {
         return code;
@@ -29,6 +35,13 @@ public:
         HTTPResponseHeader::message = message;
     }
 
+    std::string toString(){
+        std::string result = HTTP_VERSION + zcy::itos(code) + " " + message  + "\r\n";
+        for(auto & header : headers){
+            result += header.first + ": " + header.second + "\r\n";
+        }
+        return result;
+    }
 
 };
 
